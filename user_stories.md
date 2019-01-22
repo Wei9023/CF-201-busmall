@@ -14,7 +14,7 @@
 -[ ] I want to give customers good experience, so that I will style the page with beatiful layouts.
 -[ ] I want to show the results at the end of the survey, so that I will add the render function at last and not return any result until the customers finish.
 -[ ] I want the customers to click ou the image directly, so that I will add eventlisteners to the images.
--[ ] I want the images being show in similar size, so that I need to resize the images before coding.
+-[X] I want the images being show in similar size, so that I need to resize the images before coding.
 -[ ] I want to help the marketing research team to get accurate results, so that I will try as less as possible to show the same pictures in recent clicks.
 
 
