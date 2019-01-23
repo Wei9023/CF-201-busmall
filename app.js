@@ -8,9 +8,12 @@ var clickTimes = 0;
 var voteChart;
 var chartDrawn = false;
 var names = [];
-// var ratio = [];
 var votes = [];
 var views =[];
+var votesInStorage = localStorage.getItem('votes');
+var storagedVotes=[];
+console.log(votesInStorage);
+
 
 function ProductPic (name, suffix) {
     this.name = name;
@@ -55,7 +58,6 @@ function getRandomPicIndexArray(){
             currentPicIndexArray[currentPicIndexArray.length] = randomIndex;
         } 
     }
-    // alert(currentPicIndexArray);
     previousPicIndexArray = currentPicIndexArray;
     return currentPicIndexArray;
 }
@@ -72,29 +74,16 @@ function showRandomPics(randomPicsIndexArray){
         
         productPic.appendChild(imgEl);
         
-        // generatePics.src =allPictures[randomPicsIndexArray[i]].filepath;
-        // generatePics.name =allPictures[randomPicsIndexArray[i]].name;
-        // generatePics.alt = allPictures[randomPicsIndexArray[i]].name;
         allPictures[randomPicsIndexArray[i]].view++;
-        // randomPics.push(generatePics);
     }  
 }
-
 
 function updatePicArrays(){
     for (var i=0; i<allPictures.length; i++) {
         names[i] = allPictures[i].name;
         votes[i] = allPictures[i].vote;
-        // views[i] = allPictures[i].view;
-        //ratio[i] = parseInt(allPictures[i].vote/allPictures[i].view);
-        console.log(names);
-        // console.log(ratio);
-        console.log(votes);
-        // console.log(views);
     }
 }
-
-
 
 ProductPic.prototype.render = function() {
     var imgEl = document.createElement('img');
@@ -103,9 +92,6 @@ ProductPic.prototype.render = function() {
         productPic.appendChild(imgEl);
     }
 }
-
-
-
 
 function showResults(){
     var ulEl = document.createElement('ul');
@@ -119,18 +105,10 @@ function showResults(){
     
 }
 
-// function tallyVote(thisPic) {
-//     for (var i=0; i<allPictures.length; i++) {
-//         if(thisPic === allPictures[i].)
-//     }
-// }
-
-
-
 var data = {
     labels: names,
     datasets: [{
-        data: votes,
+        data: storagedVotes,
         backgroundColor:[
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 99, 132, 0.2)',
@@ -188,27 +166,38 @@ function hideChart() {
 }
 
 
+function loadStorage (){
+    if ( votesInStorage != null) {      
+        var productVotes= JSON.parse(localStorage.getItem('votes'));
+
+        for(var i=0;i <productVotes.length; i++){
+            storagedVotes[i] = votes[i] + productVotes[i]
+            localStorage.setItem('votes', JSON.stringify(storagedVotes));
+            console.log(storagedVotes);
+        }
+    }  else {
+        localStorage.setItem('votes', JSON.stringify(votes));
+        console.log(localStorage);
+    }  
+}
 
 function handleClick(event){
+    allPictures[parseInt( event.target.name)].vote++;
 
-    
-        // console.log(event.target);
+    productPic.innerHTML = "";
+    var nextClick = getRandomPicIndexArray();
+    showRandomPics(nextClick);
+    clickTimes++;
 
-        allPictures[parseInt( event.target.name)].vote++;
-
-        productPic.innerHTML = "";
-        var nextClick = getRandomPicIndexArray();
-        showRandomPics(nextClick);
-        clickTimes++;
-
-        if(clickTimes >=25 ){
-
-             productPic.innerHTML = "";
-
-            showResults(); 
-            updatePicArrays(); 
-            drawChart();
-        }
+    if(clickTimes >=10 ){
+    productPic.innerHTML = "";
+   
+    showResults(); 
+    updatePicArrays(); 
+    loadStorage(); 
+    drawChart();
+           
+    }
 }
 
 productPic.addEventListener('click', handleClick);
