@@ -132,7 +132,7 @@ var data = {
     datasets: [{
         data: votes,
         backgroundColor:[
-            'rgba(255, 0, 0, 0.1)',
+            'rgba(255, 99, 132, 0.2)',
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 99, 132, 0.2)' , 
             'rgba(255, 99, 132, 0.2)',
@@ -201,7 +201,7 @@ function handleClick(event){
         showRandomPics(nextClick);
         clickTimes++;
 
-        if(clickTimes >=10 ){
+        if(clickTimes >=25 ){
 
              productPic.innerHTML = "";
 
