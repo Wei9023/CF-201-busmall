@@ -1,0 +1,10 @@
+body {
+    margin: 0 auto;
+}
+img {
+    width: 200px;
+    height: 200px;
+    border: 4px dashed red;
+    padding: 5px;
+    margin-right: 5px;
+}

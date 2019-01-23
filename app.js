@@ -5,6 +5,12 @@ var allPictures=[];
 var productPic = document.getElementById('pictures');
 var resultList = document.getElementById('list');
 var clickTimes = 0;
+var voteChart;
+var chartDrawn = false;
+var names = [];
+// var ratio = [];
+var votes = [];
+var views =[];
 
 function ProductPic (name, suffix) {
     this.name = name;
@@ -74,6 +80,22 @@ function showRandomPics(randomPicsIndexArray){
     }  
 }
 
+
+function updatePicArrays(){
+    for (var i=0; i<allPictures.length; i++) {
+        names[i] = allPictures[i].name;
+        votes[i] = allPictures[i].vote;
+        // views[i] = allPictures[i].view;
+        //ratio[i] = parseInt(allPictures[i].vote/allPictures[i].view);
+        console.log(names);
+        // console.log(ratio);
+        console.log(votes);
+        // console.log(views);
+    }
+}
+
+
+
 ProductPic.prototype.render = function() {
     var imgEl = document.createElement('img');
     for(var i=0; i<randomPics.length; i++){
@@ -97,6 +119,75 @@ function showResults(){
     
 }
 
+// function tallyVote(thisPic) {
+//     for (var i=0; i<allPictures.length; i++) {
+//         if(thisPic === allPictures[i].)
+//     }
+// }
+
+
+
+var data = {
+    labels: names,
+    datasets: [{
+        data: votes,
+        backgroundColor:[
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)' , 
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)'
+        ],
+    }]
+
+};
+
+function drawChart() {
+    var ctx = document.getElementById('product-chart').getContext('2d');
+
+    voteChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: false,
+            animation: {
+                dduration: 10000,
+                easing: 'easeOutBounce'
+            }
+        },
+        scales: {
+            yAxes:[{
+                ticks:{
+                    max: 10,
+                    min: 0,
+                    stepSize: 1.0
+                }
+            }]
+        }
+    });
+    chartDrawn = true;
+}
+
+function hideChart() {
+    document.getElementById('product-Chart').hidden = true;
+}
+
+
 
 function handleClick(event){
 
@@ -112,13 +203,19 @@ function handleClick(event){
 
         if(clickTimes >=25 ){
 
-            productPic.innerHTML = "";
-            showResults();  
+             productPic.innerHTML = "";
 
+            showResults(); 
+            updatePicArrays(); 
+            drawChart();
         }
 }
 
 productPic.addEventListener('click', handleClick);
+
+document.getElementById('product-chart').addEventListener('click', function(){
+    document.getElementById('product-chart').hidden = true;
+})
 
 var randomPicsIndexArray = getRandomPicIndexArray();
 showRandomPics(randomPicsIndexArray);
