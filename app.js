@@ -109,28 +109,7 @@ var data = {
     labels: names,
     datasets: [{
         data: storagedVotes,
-        backgroundColor:[
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)' , 
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)'
-        ],
+        backgroundColor:'rgba(255, 99, 132, 0.2)',
     }]
 
 };
@@ -189,7 +168,7 @@ function handleClick(event){
     showRandomPics(nextClick);
     clickTimes++;
 
-    if(clickTimes >=10 ){
+    if(clickTimes >=25 ){
     productPic.innerHTML = "";
    
     showResults(); 
