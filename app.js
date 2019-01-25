@@ -2,7 +2,7 @@
 
 var allPictures=[];
 
-var productPic = document.getElementById('pictures');
+var productPic = document.getElementById('showPictures');
 var resultList = document.getElementById('list');
 var clickTimes = 0;
 var voteChart;
@@ -94,14 +94,14 @@ ProductPic.prototype.render = function() {
 }
 
 function showResults(){
-    var ulEl = document.createElement('ul');
+    var ulEl = document.getElementById('productList');
     
     for (var i=0; i< allPictures.length; i++){
         var liEl = document.createElement('li');
         liEl.textContent = `${allPictures[i].vote} vote(s) for ${allPictures[i].name}`
         ulEl.appendChild(liEl);
     }
-    resultList.appendChild(ulEl);
+    // resultList.appendChild(ulEl);
     
 }
 
@@ -109,7 +109,8 @@ var data = {
     labels: names,
     datasets: [{
         data: storagedVotes,
-        backgroundColor:'rgba(255, 99, 132, 0.2)',
+        backgroundColor:'rgba(255, 99, 132, 0.7)',
+
     }]
 
 };
@@ -169,17 +170,18 @@ function handleClick(event){
     clickTimes++;
 
     if(clickTimes >=25 ){
-    productPic.innerHTML = "";
+    // productPic.innerHTML = "";
    
     showResults(); 
     updatePicArrays(); 
     loadStorage(); 
     drawChart();
-           
+    productPic.removeEventListener('click', handleClick);      
     }
 }
 
 productPic.addEventListener('click', handleClick);
+
 
 document.getElementById('product-chart').addEventListener('click', function(){
     document.getElementById('product-chart').hidden = true;

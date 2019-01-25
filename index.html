@@ -4,22 +4,36 @@
     <title>BusMall</title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="reset.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
     </head>
     <body>
         <header>
-            <h1>BusMall</h1>
+            <nav>
+                <img src="img/buslogo.png"  alt="logo" id="logo"/>
+                <h1 id="title">BusMall</h1>
+                <ul id="tags">
+                    <li>Home</li>
+                    <li>Product</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>   
         </header>
 
 
         <main>
+            <section id='list'>
+                <p>Votes Results</p>
+                <ul id="productList"></ul>
+            </section>
             <section id="pictures">
                 <p>Vote for the product you want to purchase!</p>
+                <div id="showPictures"></div>
             </section>
-            <section id='list'>
-            </section>
-            <canvas id="product-chart" width="900" height="300">
-
-            </canvas>
+            <div id="myChart">
+                <canvas id="product-chart" width="900" height="300"></canvas>
+            </div>
+            
         </main>
 
         <footer>
