@@ -12,6 +12,7 @@ var votes = [];
 var views =[];
 var votesInStorage = localStorage.getItem('votes');
 var storagedVotes=[];
+var btn = document.getElementById('btn');
 console.log(votesInStorage);
 
 
@@ -147,17 +148,19 @@ function hideChart() {
 
 
 function loadStorage (){
-    if ( votesInStorage != null) {      
+    if ( votesInStorage != null) {
+        console.log(votesInStorage);      
         var productVotes= JSON.parse(localStorage.getItem('votes'));
-
-        for(var i=0;i <productVotes.length; i++){
+        for(var i=0;i < votes.length; i++){
             storagedVotes[i] = votes[i] + productVotes[i]
             localStorage.setItem('votes', JSON.stringify(storagedVotes));
-            console.log(storagedVotes);
+            
         }
-    }  else {
-        localStorage.setItem('votes', JSON.stringify(votes));
-        console.log(localStorage);
+    }  else {   
+        for(var i=0;i < votes.length; i++){
+            storagedVotes[i] = votes[i];
+            localStorage.setItem('votes', JSON.stringify(storagedVotes));
+        }
     }  
 }
 
@@ -175,12 +178,16 @@ function handleClick(event){
     showResults(); 
     updatePicArrays(); 
     loadStorage(); 
+    productPic.removeEventListener('click', handleClick); 
     drawChart();
-    productPic.removeEventListener('click', handleClick);      
+         
     }
 }
 
 productPic.addEventListener('click', handleClick);
+btn.addEventListener('click', function(){
+    location.reload();
+})
 
 
 document.getElementById('product-chart').addEventListener('click', function(){
